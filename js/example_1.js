@@ -1,4 +1,5 @@
 var MessageModel = Backbone.Model.extend({
+    urlRoot: '../api/example_1.php',
     defaults: {
         message: 'Text Message'
     }
@@ -20,7 +21,11 @@ var MessageRouter = Backbone.Router.extend({
     displayMessage: function(){
         var msg = new MessageModel();
         var msgView = new MessageView({model: msg});
-        $('#msg').html(msgView.render().el);
+        msg.fetch({
+            success: function(){
+                $('#msg').html(msgView.render().el);
+            }
+        });
     }
 });
 
